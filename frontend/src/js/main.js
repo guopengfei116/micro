@@ -2,10 +2,14 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VueResource from 'vue-resource';
+import MintUI from 'mint-ui';
+import 'mint-ui/lib/style.css';
+import 'mui/dist/css/mui.css';
 
 // 1.1、记得手动use启用插件
 Vue.use(VueRouter);
 Vue.use(VueResource);
+Vue.use(MintUI);
 
 // 二、导入我们自己的东西
 

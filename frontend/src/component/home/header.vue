@@ -1,6 +1,6 @@
 <template>
   <header>
-      <p>这是app的头部</p>
+      <mt-header fixed title="固定在顶部"></mt-header>
   </header>
 </template>
 
