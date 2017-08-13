@@ -1,9 +1,9 @@
 <template>
   <article class="list">
-  	<v-title title="新闻咨询"></v-title>
+  	<v-title :title="title"></v-title>
     <ul class="mui-table-view">
         <li v-for="item in list" :key="item.id" class="mui-table-view-cell mui-media">
-            <a href="javascript:;">
+            <router-link :to="'/news/detail/' + item.id">
                 <img :src="item.img_url" class="mui-media-object mui-pull-left">
                 <div class="mui-media-body">
                     <h4 class="mui-ellipsis">{{ item.title }}</h4>
@@ -12,7 +12,7 @@
                         <p>点击量：{{ item.click }}</p>
                     </div>
                 </div>
-            </a>
+            </router-link>
         </li>
     </ul>
   </article>
@@ -24,7 +24,8 @@
 	export default {
 	    data() {
 	        return {
-	            list: []  
+	        		title: '新闻咨询',
+	            list: []
 	        };
 	    },
 	    methods: {
