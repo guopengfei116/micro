@@ -6,12 +6,12 @@
 </template>
 
 <script>
-	import Cswipe from './swipe.vue';
-	import Cnav from './nav.vue';
+	import vSwipe from './swipe.vue';
+	import vNav from './nav.vue';
 	export default {
 	  components: {
-	  	'v-swipe': Cswipe,
-	  	'v-nav': Cnav
+	  	vSwipe,
+	  	vNav
 	  }
 	};
 </script>

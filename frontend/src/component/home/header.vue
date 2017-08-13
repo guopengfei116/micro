@@ -1,7 +1,7 @@
 <template>
   <header class="header">
   		<div></div>
-      <mt-header fixed title="固定在顶部"></mt-header>
+      <mt-header fixed title="小本买卖"></mt-header>
   </header>
 </template>
 
