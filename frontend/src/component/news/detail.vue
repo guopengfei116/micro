@@ -11,18 +11,24 @@
         <div class="mui-card-content-inner" v-html="news.content"></div>
       </div>
     </div>
+  	<v-comment :id="id"></v-comment>
   </section>
 </template>
 
 <script>
 	import config from '../../js/config/api.js';
 	import vTitle from '../common/title.vue';
+	import vComment from '../common/comment.vue';
 	export default {
 		data() {
 	    return {
 	      news: {},
-	      title: '新闻详情'
+	      title: '新闻详情',
+	      id: null
 	    }
+	  },
+	  created() {
+	  	this.id = this.$route.params.id;
 	  },
 	  methods: {
 	    // 根据id获取对应的新闻详情
@@ -37,7 +43,8 @@
 	    this.getDetatils();
 	  },
 	  components: {
-	    vTitle
+	    vTitle,
+	    vComment
 	  }
 	};
 </script>
