@@ -8,7 +8,7 @@
                 <div class="mui-media-body">
                     <h4 class="mui-ellipsis">{{ item.title }}</h4>
                     <div class="list_item">
-                        <p>创建时间：{{ item.add_time }}</p>
+                        <p>创建时间：{{ item.add_time | formatDate }}</p>
                         <p>点击量：{{ item.click }}</p>
                     </div>
                 </div>

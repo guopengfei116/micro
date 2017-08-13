@@ -4,7 +4,7 @@
     <div class="mui-card">
       <div class="mui-card-header">{{ news.title }}</div>
       <div class="mui-card-footer" >
-        <span>创建时间：{{ news.add_time | formatDate('YYYY-MM-DD') }}</span>
+        <span>创建时间：{{ news.add_time | formatDate }}</span>
         <span>浏览量：{{ news.click }}</span>
       </div>
       <div class="mui-card-content">
