@@ -35,7 +35,8 @@
 
 <style lang="less">
 	.title {
-		background-color: #ccc;
-		border-bottom: 1px solid #888;
+		background-color: #fff;
+		border-bottom: 1px solid #ccc;
+		color: #24b189;
 	}
 </style>
