@@ -5,6 +5,7 @@ import VueResource from 'vue-resource';
 import MintUI from 'mint-ui';
 import 'mint-ui/lib/style.css';
 import 'mui/dist/css/mui.css';
+import 'mui/examples/hello-mui/css/icons-extra.css';
 
 // 1.1、记得手动use启用插件
 Vue.use(VueRouter);

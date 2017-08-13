@@ -1,22 +1,25 @@
 <template>
-  <footer>
+  <footer class="footer">
+  		<div></div>
       <nav class="mui-bar mui-bar-tab">
-				<a class="mui-tab-item" href="#tabbar">
+				<router-link class="mui-tab-item mui-active" to="/index">
 					<span class="mui-icon mui-icon-home"></span>
 					<span class="mui-tab-label">首页</span>
-				</a>
-				<a class="mui-tab-item mui-active" href="#tabbar-with-chat">
-					<span class="mui-icon mui-icon-email"><span class="mui-badge">9</span></span>
-					<span class="mui-tab-label">消息</span>
-				</a>
-				<a class="mui-tab-item" href="#tabbar-with-contact">
+				</router-link>
+				<router-link class="mui-tab-item" to="/goods/list">
+					<span class="mui-icon mui-icon-extra mui-icon-extra-gift"></span>
+					<span class="mui-tab-label">商品购买</span>
+				</router-link>
+				<router-link class="mui-tab-item" to="/shopcart">
+					<span class="mui-icon mui-icon-extra mui-icon-extra-cart">
+						<span class="mui-badge">0</span>
+					</span>
+					<span class="mui-tab-label">购物车</span>
+				</router-link>
+				<router-link class="mui-tab-item" to="/personal">
 					<span class="mui-icon mui-icon-contact"></span>
-					<span class="mui-tab-label">通讯录</span>
-				</a>
-				<a class="mui-tab-item" href="#tabbar-with-map">
-					<span class="mui-icon mui-icon-gear"></span>
-					<span class="mui-tab-label">设置</span>
-				</a>
+					<span class="mui-tab-label">个人中心</span>
+				</router-link>
 			</nav>
   </footer>
 </template>
@@ -27,7 +30,10 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="less">
+	.footer {
+		div {
+			height: 50px;
+		}
+	}
 </style>
-
