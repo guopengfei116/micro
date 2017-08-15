@@ -26,18 +26,16 @@
 
 <script>
 export default {
-  
+
 }
 </script>
 
 <style lang="less">
 	.footer {
-		
 		/* 底部空标签占位 */
 		div {
 			height: 50px;
 		}
-		
 		/* 修改tab激活颜色 */
 		.mui-bar-tab .mui-tab-item.mui-active {
 			color: #24b189;

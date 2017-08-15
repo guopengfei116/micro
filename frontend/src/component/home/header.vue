@@ -7,18 +7,16 @@
 
 <script>
 export default {
-  
+
 };
 </script>
 
 <style lang="less">
 	.header {
-		
 		/* 头部空标签占位 */
 		div {
 			height: 40px;
 		}
-		
 		/* 修改mintUI样式 */
 		.mint-header {
 	    background-color: #2ce094;

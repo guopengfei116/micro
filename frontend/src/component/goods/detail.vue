@@ -16,16 +16,12 @@
         <div class="price"> <s>市场价:￥{{ goods.sell_price }}</s> <span>销售价: </span> <em>￥{{ goods.market_price }}</em> </div>
         <div> <span>购买数量：</span>
           <!--数字输入框 -->
-          <div class="mui-numbox">
-          	<button class="mui-btn mui-btn-numbox-minus">-</button>
-          	<input class="mui-input-numbox" type="number">
-          	<button class="mui-btn mui-btn-numbox-plus">+</button>
-          </div>
+					<v-numbox :initial="count" @change="upCount"></v-numbox>
         </div>
       </div>
       <!-- 按钮 -->
       <div class="mui-card-footer">
-      	<button type="button" class="mui-btn mui-btn-success mui-btn-block mui-btn-outlined">购买</button>
+	  		<router-link to="/shopcart" class="mui-btn mui-btn-success mui-btn-block mui-btn-outlined">结算</router-link>
         <div></div>
         <button type="button" class="mui-btn mui-btn-success mui-btn-block mui-btn-outlined">加入购物车</button>
       </div>
@@ -49,6 +45,7 @@
 	import URL from '../../js/api/url.js';
   import vTitle from '../common/title.vue';
   import vSwipe from '../common/swipe.vue';
+  import vNumbox from '../common/numbox.vue';
   import vComment from '../common/comment.vue';
   import vInfo from './info.vue';
 
@@ -58,10 +55,10 @@
     	return {
     		title: '商品购买',
     		id: this.$route.params.id,
-    		selectedTab: '',
+    		count: 1,
     		hums: [],
 			  goods: {},
-			  info: {}
+			  selectedTab: ''
     	};
     },
 
@@ -89,6 +86,12 @@
       		let body = rep.body;
       		body.status == 0 && (this.goods = body.message[0]);
       	});
+      },
+
+      // 更新商品购买数量，更新购物车显示数据
+      upCount(val) {
+      	this.count = val;
+      	console.log(this.$refs)
       }
     },
 
@@ -100,6 +103,7 @@
     components: {
     	vTitle,
     	vSwipe,
+    	vNumbox,
     	vComment,
     	vInfo
     }
