@@ -19,7 +19,7 @@
       </div>
       <!-- 按钮 -->
       <div class="mui-card-footer">
-      	<button type="button" class="mui-btn mui-btn-success mui-btn-block mui-btn-outlined">购买</button>
+      	<button type="button" class="mui-btn mui-btn-success mui-btn-block mui-btn-outlined">结算</button>
         <div></div>
         <button type="button" class="mui-btn mui-btn-success mui-btn-block mui-btn-outlined">加入购物车</button>
       </div>
