@@ -1,7 +1,9 @@
 <template>
-  <section class="list">
+  <section class="photo-list">
+
   	<!-- 头部 -->
   	<v-title :title="title"></v-title>
+
     <!-- 分类 -->
     <ul class="mui-table-view">
       <li class="mui-table-view-cell">全部</li>
@@ -9,6 +11,7 @@
         <router-link :to="'/photo/list/' + item.id">{{ item.title }}</router-link>
       </li>
     </ul>
+
     <!-- 列表 -->
     <div class="mui-card" v-for="item in photoList" :key="item.id">
       <router-link :to="'/photo/detail/' + item.id">
@@ -21,6 +24,7 @@
         </div>
       </div>
     </div>
+
   </section>
 </template>
 
@@ -29,6 +33,7 @@
   import vTitle from '../common/title.vue';
 
   export default {
+
     data() {
       return {
       	title: '图片分享',
@@ -36,6 +41,7 @@
         photoList: []
       };
     },
+
     watch: {
       // 实例身上有一个$route属性，当前页面变化时，这个属性的值也会跟着变化,
       // 只要页面一变化，那么就根据新的id渲染图片列表
@@ -43,7 +49,9 @@
         this.getPhotoList(this.$route.params.id);
       }
     },
+
     methods: {
+
       // 获取分类列表
       getCategoryList() {
         let url = URL.photoCategoryList;
@@ -52,6 +60,7 @@
           body.status == 0 && (this.categoryList = body.message);
         });
       },
+
       // 获取图片列表
       getPhotoList(id) {
         let url = URL.photoList + id;
@@ -66,16 +75,19 @@
           }
         });
       },
+
       // 获取背景style
       getStyle(item) {
         return 'height:40vw; background-image:url("' + item.img_url + '")';
       }
     },
+
     created() {
       // 页面一进来就要获取分类列表，然后根据url中附带的id获取图片列表
       this.getCategoryList();
       this.getPhotoList(this.$route.params.id);
     },
+
     components: {
     	vTitle
     }
@@ -83,7 +95,7 @@
 </script>
 
 <style lang="less">
-  .list {
+  .photo-list {
     .mui-table-view {
       overflow: hidden;
       &-cell {

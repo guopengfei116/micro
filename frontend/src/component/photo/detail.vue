@@ -1,7 +1,9 @@
 <template>
-  <section class="detail">
+  <section class="photo-detail">
+
   	<!-- 头部 -->
   	<v-title :title="title"></v-title>
+
   	<!-- 详情 -->
     <div class="mui-card">
     	<!-- 标题 -->
@@ -18,6 +20,7 @@
       <!-- 描述部分 -->
       <div class="mui-card-footer" v-html='info.content'></div>
     </div>
+
   </section>
 </template>
 
@@ -26,6 +29,7 @@
   import vTitle from '../common/title.vue';
 
   export default {
+
     data() {
       return {
       	title: '图片详情',
@@ -33,6 +37,7 @@
         hums: []
       };
     },
+
     methods: {
 
       // 获取描述信息
@@ -59,10 +64,12 @@
         });
       }
     },
+
     created() {
       this.getInfo();
       this.getHums();
     },
+
     components: {
     	vTitle
     }
@@ -70,7 +77,7 @@
 </script>
 
 <style lang="less">
-  .detail {
+  .photo-detail {
     .mui-card-header,
     .mui-card-footer {
       display: block

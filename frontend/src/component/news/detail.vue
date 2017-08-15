@@ -1,7 +1,9 @@
 <template>
-  <section class="list">
+  <section class="news-list">
+
   	<!-- 头部 -->
     <v-title :title="title"></v-title>
+
     <!-- 详情 -->
     <div class="mui-card">
       <div class="mui-card-header">{{ news.title }}</div>
@@ -13,8 +15,10 @@
         <div class="mui-card-content-inner" v-html="news.content"></div>
       </div>
     </div>
+
     <!-- 评论 -->
   	<v-comment :id="id"></v-comment>
+
   </section>
 </template>
 
@@ -22,7 +26,9 @@
 	import URL from '../../js/api/url.js';
 	import vTitle from '../common/title.vue';
 	import vComment from '../common/comment.vue';
+
 	export default {
+
 		data() {
 	    return {
 	      news: {},
@@ -30,10 +36,13 @@
 	      id: this.$route.params.id
 	    }
 	  },
+
 	  created() {
 	  	this.id = this.$route.params.id;
 	  },
+
 	  methods: {
+
 	    // 根据id获取对应的新闻详情
 	    getDetatils() {
 	      let url = URL.newsDetail + this.$route.params.id;
@@ -42,9 +51,11 @@
 	      });
 	    }
 	  },
+
 	  created() {
 	    this.getDetatils();
 	  },
+
 	  components: {
 	    vTitle,
 	    vComment
@@ -53,7 +64,7 @@
 </script>
 
 <style lang="less">
-	.list {
+	.news-list {
 		img {
 			width: 100%;
 		}
