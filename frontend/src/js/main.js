@@ -15,11 +15,11 @@ Vue.use(MintUI);
 // 二、导入我们自己的东西
 
 // 2.1 过滤器插件
-import Filter from './filter.js';
+import Filter from './vue/filter.js';
 Vue.use(Filter);
 
 // 2.2 路由实例
-import router from './router.js';
+import router from './vue/router.js';
 
 // 2.3 组件
 import App from '../component/App.vue';  // 根组件

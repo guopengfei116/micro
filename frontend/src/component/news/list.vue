@@ -1,6 +1,8 @@
 <template>
   <article class="list">
+  	<!-- 头部 -->
   	<v-title :title="title"></v-title>
+  	<!-- 列表 -->
     <ul class="mui-table-view">
         <li v-for="item in list" :key="item.id" class="mui-table-view-cell mui-media">
             <router-link :to="'/news/detail/' + item.id">
@@ -19,7 +21,7 @@
 </template>
 
 <script>
-	import config from '../../js/config/api.js';
+	import URL from '../../js/api/url.js';
 	import vTitle from '../common/title.vue';
 	export default {
 	    data() {
@@ -31,7 +33,7 @@
 	    methods: {
 	        // 获取新闻列表
 	        getNews() {
-	            let url = config.newsList;
+	            let url = URL.newsList;
 	            this.$http.get(url).then(rep => {
 	                rep.body.status == 0 && (this.list = rep.body.message);
 	            });

@@ -36,7 +36,7 @@
 </template>
 
 <script>
-  import config from '../../js/config/api.js';  // 接口配置
+  import URL from '../../js/api/url.js';  // 接口配置
   import { Toast } from 'mint-ui';  // 提示框组件
 
   // 组件定义
@@ -56,7 +56,7 @@
 
   		// 提交评论
   		putComment() {
-  			let url = config.commentPut + this.id;
+  			let url = URL.commentPut + this.id;
   			let data = {content: this.content};
   			let options = { emulateJSON: true };
 
@@ -81,7 +81,7 @@
 
   		// 获取评论列表
   		getComment() {
-  			let url = config.commentList + this.id;
+  			let url = URL.commentList + this.id;
   			let options = {
   				params:{pageindex: this.pageindex}
   			};
