@@ -104,6 +104,7 @@
       .tip {
         overflow: hidden;
         padding: 0 8px;
+        font-size: 12px;
         span:first-child {
           float: left;
         }

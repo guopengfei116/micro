@@ -4,13 +4,16 @@
   	<!-- 头部 -->
   	<v-title :title="title"></v-title>
 
+  	<!-- 轮播图 -->
+  	<v-swipe :lunbos="hums"></v-swipe>
+
   	<!-- 商品购买 -->
     <div class="mui-card">
       <!-- 名称 -->
       <div class="mui-card-header">{{ goods.title }}</div>
       <!-- 价格 -->
       <div class="mui-card-content mui-card-content-inner">
-        <div class="price"> <s>市场价:￥{{ goods.sell_price }}\</s> <span>销售价: </span> <em>￥{{ goods.market_price }}</em> </div>
+        <div class="price"> <s>市场价:￥{{ goods.sell_price }}</s> <span>销售价: </span> <em>￥{{ goods.market_price }}</em> </div>
         <div> <span>购买数量：</span>
           <!--数字输入框 -->
           <div class="mui-numbox">
@@ -52,6 +55,7 @@
 <script>
 	import URL from '../../js/api/url.js';
   import vTitle from '../common/title.vue';
+  import vSwipe from '../common/swipe.vue';
   import vComment from '../common/comment.vue';
 
   export default {
@@ -61,11 +65,27 @@
     		title: '商品购买',
     		id: this.$route.params.id,
     		selectedTab: 'comment',
+    		hums: [],
 			  goods: {}
     	};
     },
 
     methods: {
+
+    	// 获取商品缩略图
+      getHums() {
+        let url = URL.photoHums + this.id;
+        this.$http.get(url).then(rep => {
+          let body = rep.body;
+          if(body.status == 0) {
+            // 遍历图片列表，修改每一个图片对象的img_url地址
+            this.hums = body.message.map(function(photo, i) {
+              photo.src = URL.imgDomain + photo.src;
+              return photo;
+            });
+          }
+        });
+      },
 
       // 获取价格信息
       getGoodsPrice() {
@@ -74,20 +94,18 @@
       		let body = rep.body;
       		body.status == 0 && (this.goods = body.message[0]);
       	});
-      },
-
-      // 获取图文信息
-
-
+      }
 
     },
 
     created() {
+    	this.getHums();
     	this.getGoodsPrice();
     },
 
     components: {
     	vTitle,
+    	vSwipe,
     	vComment
     }
   };
