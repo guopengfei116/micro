@@ -5,7 +5,7 @@
   	<v-title :title="title"></v-title>
 
   	<!-- 轮播图 -->
-  	<v-swipe :lunbos="hums"></v-swipe>
+	  <v-swipe :lunbos="hums"></v-swipe>
 
   	<!-- 商品购买 -->
     <div class="mui-card">
@@ -35,18 +35,11 @@
 		<div class="mui-card">
 			<!-- 选项卡 -->
 	    <mt-navbar v-model="selectedTab">
-			  <mt-tab-item id="comment">商品评论</mt-tab-item>
-			  <mt-tab-item id="info">图文介绍</mt-tab-item>
+			  <mt-tab-item id="vComment">商品评论</mt-tab-item>
+			  <mt-tab-item id="vInfo">图文介绍</mt-tab-item>
 			</mt-navbar>
 			<!-- 内容 -->
-	    <mt-tab-container v-model="selectedTab">
-			  <mt-tab-container-item id="comment">
-			    <v-comment :id="id"></v-comment>
-			  </mt-tab-container-item>
-			  <mt-tab-container-item id="info">
-			    <mt-cell v-for="n in 5" title="tab-container 2"></mt-cell>
-			  </mt-tab-container-item>
-			</mt-tab-container>
+			<component :is="selectedTab" :id="id"></component>
 		</div>
 
   </article>
@@ -57,6 +50,7 @@
   import vTitle from '../common/title.vue';
   import vSwipe from '../common/swipe.vue';
   import vComment from '../common/comment.vue';
+  import vInfo from './info.vue';
 
   export default {
 
@@ -64,9 +58,10 @@
     	return {
     		title: '商品购买',
     		id: this.$route.params.id,
-    		selectedTab: 'comment',
+    		selectedTab: '',
     		hums: [],
-			  goods: {}
+			  goods: {},
+			  info: {}
     	};
     },
 
@@ -95,7 +90,6 @@
       		body.status == 0 && (this.goods = body.message[0]);
       	});
       }
-
     },
 
     created() {
@@ -106,7 +100,8 @@
     components: {
     	vTitle,
     	vSwipe,
-    	vComment
+    	vComment,
+    	vInfo
     }
   };
 </script>

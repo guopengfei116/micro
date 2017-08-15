@@ -28,7 +28,7 @@ export default {
   // 商品
   goodsList: domain + '/api/getgoods/', // 商品列表
   goodsPrice: domain + '/api/goods/getinfo/', // 商品价格
-  goodsDetail: domain + '/api/goods/getdesc/', // 商品详情
+  goodsInfo: domain + '/api/goods/getdesc/', // 商品详情
 
   // 购物车
   shopcartList: domain + '/api/goods/getshopcarlist/', // 购物车列表
