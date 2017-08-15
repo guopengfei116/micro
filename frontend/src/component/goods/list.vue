@@ -32,7 +32,7 @@
       </li>
     </ul>
     <!-- 加载更多 -->
-    <button @click="getGoodsList" class="mui-btn mui-btn-success mui-btn-block mui-btn-outlined">加载更多</button>
+    <button ref="loadMoreBtn" @click="getGoodsList" class="mui-btn mui-btn-success mui-btn-block">加载更多</button>
   </article>
 </template>
 
@@ -61,6 +61,8 @@
   				if(body.status == 0 && body.message.length > 0){
   					this.goodsList.push(...body.message);
   					this.pageindex++;
+  				}else if(body.message.length == 0){
+  					this.$refs.loadMoreBtn.disabled = true;
   				}
         });
       }

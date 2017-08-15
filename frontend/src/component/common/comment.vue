@@ -29,7 +29,7 @@
 				</ul>
 			</div>
 			<div class="mui-card-footer">
-				<button @click="getComment" type="button" class="mui-btn mui-btn-success mui-btn-block">加载更多</button>
+				<button ref="loadMoreBtn" @click="getComment" type="button" class="mui-btn mui-btn-success mui-btn-block">加载更多</button>
 			</div>
 		</div>
 	</section>
@@ -93,6 +93,8 @@
   				if(body.status == 0 && body.message.length > 0){
   					this.list.push(...body.message);
   					this.pageindex++;
+  				}else if(body.message.length == 0){
+  					this.$refs.loadMoreBtn.disabled = true;
   				}
   			});
   		}
