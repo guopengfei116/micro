@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --inline --open --content-base build --port 8888"
+    "start": "webpack-dev-server --inline --open --content-base build --port 8888 -d"
   },
   "repository": {
     "type": "git",
