@@ -21,9 +21,10 @@ export default {
 		
 		/* 修改mintUI样式 */
 		.mint-header {
-	    background-color: #24b189;
+	    background-color: #2ce094;
 	    &-title {
 	    	font-size: 22px;
+	    	font-weight: 900;
 	    }
 	  }
 	}

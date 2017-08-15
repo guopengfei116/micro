@@ -24,7 +24,7 @@
 	    return {
 	      news: {},
 	      title: '新闻详情',
-	      id: null
+	      id: this.$route.params.id
 	    }
 	  },
 	  created() {
@@ -50,5 +50,9 @@
 </script>
 
 <style lang="less">
-
+	.list {
+		img {
+			width: 100%;
+		}
+	}
 </style>
