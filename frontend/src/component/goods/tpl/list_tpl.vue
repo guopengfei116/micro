@@ -3,7 +3,7 @@
     <ul class="mui-table-view mui-grid-view">
       <!-- 商品详情 -->
       <li class="mui-table-view-cell mui-media mui-col-xs-6">
-      	<router-view to="/">
+      	<router-link to="/">
 	        <div class="mui-card">
 	          <!-- 商品图片 -->
 	          <div class="mui-card-header">
@@ -25,7 +25,7 @@
 	            </p>
 	          </div>
 	        </div>
-        </router-view>
+        </router-link>
       </li>
       <!-- 商品详情 -->
       <li class="mui-table-view-cell mui-media mui-col-xs-6">
@@ -85,6 +85,7 @@
       .tip {
         overflow: hidden;
         padding: 0 8px;
+        font-size: 12px;
         span:first-child {
           float: left;
         }

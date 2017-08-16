@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import URL from '../../js/api/url.js';
+  import URL from '../../../js/api/url.js';
 
   export default {
 

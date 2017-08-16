@@ -48,7 +48,7 @@
   import vSwipe from '../common/swipe.vue';
   import vNumbox from '../common/numbox.vue';
   import vComment from '../common/comment.vue';
-  import vInfo from './info.vue';
+  import vInfo from './son/info.vue';
 
   export default {
 
