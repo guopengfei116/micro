@@ -127,7 +127,7 @@
 				if(!hasSelected) {
 					Toast('请至少选择一款商品');
 				}else if(!/SESSIONID=\w+/.test(document.cookie)){
-					this.$router.push('/login');
+					this.$router.push({ name: 'login', query: { nextpage: '/order' } });
 				}else {
 					this.$router.push('/order');
 				}
