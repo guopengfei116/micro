@@ -33,7 +33,7 @@
         </ul>
       </div>
       <div class="total_btn">
-      	<mt-button type="primary">付 款</mt-button>
+      	<mt-button type="primary" @click="payment">付 款</mt-button>
       </div>
     </div>
 
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+	import { Toast } from 'mint-ui';
   import URL from '../../js/api/url.js';
   import vNumbox from '../common/numbox.vue';
   import goodsStorage from '../../js/model/goods.js';
@@ -114,8 +115,22 @@
 
     	// 更新商品数量
     	upTotal(id, total) {
-    		console.log(arguments);
     		goodsStorage.set(id, total);
+    	},
+
+    	// 付款：
+    	// 1、如果没有选择商品，给出提示
+    	// 2、如果没有登陆，跳转到登陆页
+    	// 3、没有上诉情况则跳转到订单页进行确认付款
+    	payment() {
+				let hasSelected = this.shopcartList.some(item => item.selected);
+				if(!hasSelected) {
+					Toast('请至少选择一款商品');
+				}else if(!/SESSIONID=\w+/.test(document.cookie)){
+					this.$router.push('/login');
+				}else {
+					this.$router.push('/order');
+				}
     	}
     },
 

@@ -21,6 +21,12 @@ import CgoodsDetail from '../../component/goods/detail.vue';
 // shopcart组件
 import Cshopcart from '../../component/shopcart/list.vue';
 
+// user组件
+import Clogin from '../../component/user/login.vue';
+
+// payment组件
+import Corder from '../../component/payment/order.vue';
+
 // 三、导出路由实例
 export default new VueRouter({
     routes: [
@@ -42,6 +48,12 @@ export default new VueRouter({
         { path: '/goods/detail/:id', component: CgoodsDetail, name: 'goodsD' },
 
         // 购物车
-        { path: '/shopcart/', component: Cshopcart, name: 'shopC' },
+        { path: '/shopcart/', component: Cshopcart, name: 'shopC' }, // 购物车列表
+
+        // 用户
+        { path: '/login/', component: Clogin, name: 'login' },  // 登陆
+
+        // 结账
+        { path: '/order/', component: Corder, name: 'order' } // 订单
     ]
 });
