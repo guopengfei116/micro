@@ -12,11 +12,10 @@ export default {
   // 读取本地数据
   get(key) {
     let strData = localStorage.getItem(key);
-    let result;
     try {
-    	result = JSON.parse(strData);
-    }finally {
-    	return result || {}; // 排除null的情况
+    	return JSON.parse(strData) || {}; // 排除null的情况
+    }catch(e) {
+    	return strData; // 解析错误就原物返回
     }
   }
 };

@@ -25,13 +25,13 @@
 </template>
 
 <script>
-  import goodsStorage from '../../js/data/goods.js';
+  import goodsStorage from '../../js/model/goods.js';
 
 	export default {
 
     data() {
     	return {
-    		total: goodsStorage.getAll()
+    		total: goodsStorage.get()
     	};
     }
 	}

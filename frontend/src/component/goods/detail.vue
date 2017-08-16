@@ -43,7 +43,7 @@
 
 <script>
 	import URL from '../../js/api/url.js';
-	import goodsStorage from '../../js/data/goods.js';
+	import goodsStorage from '../../js/model/goods.js';
   import vTitle from '../common/title.vue';
   import vSwipe from '../common/swipe.vue';
   import vNumbox from '../common/numbox.vue';
@@ -98,7 +98,7 @@
       joinShopcart() {
       	goodsStorage.set(this.id, this.total);
       	// 手动修改dom的值，因为这个值底部footer监听不到变化
-				document.querySelector('.mui-badge').innerText = goodsStorage.getAll();
+				document.querySelector('.mui-badge').innerText = goodsStorage.get();
       }
     },
 
