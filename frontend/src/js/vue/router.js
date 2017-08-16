@@ -18,6 +18,9 @@ import CphotoDetail from '../../component/photo/detail.vue';
 import CgoodsList from '../../component/goods/list.vue';
 import CgoodsDetail from '../../component/goods/detail.vue';
 
+// shopcart组件
+import Cshopcart from '../../component/shopcart/list.vue';
+
 // 三、导出路由实例
 export default new VueRouter({
     routes: [
@@ -36,6 +39,9 @@ export default new VueRouter({
 
         // 商品
         { path: '/goods/list/', component: CgoodsList, name: 'goodsL' },
-        { path: '/goods/detail/:id', component: CgoodsDetail, name: 'goodsD' }
+        { path: '/goods/detail/:id', component: CgoodsDetail, name: 'goodsD' },
+
+        // 购物车
+        { path: '/shopcart/', component: Cshopcart, name: 'shopC' },
     ]
 });
