@@ -16,14 +16,14 @@
         <div class="price"> <s>市场价:￥{{ goods.sell_price }}</s> <span>销售价: </span> <em>￥{{ goods.market_price }}</em> </div>
         <div> <span>购买数量：</span>
           <!--数字输入框 -->
-					<v-numbox :initial="count" @change="upCount"></v-numbox>
+					<v-numbox :initial="total" @change="upCount"></v-numbox>
         </div>
       </div>
       <!-- 按钮 -->
       <div class="mui-card-footer">
 	  		<router-link to="/shopcart" class="mui-btn mui-btn-success mui-btn-block mui-btn-outlined">结算</router-link>
         <div></div>
-        <button type="button" class="mui-btn mui-btn-success mui-btn-block mui-btn-outlined">加入购物车</button>
+        <button type="button" class="mui-btn mui-btn-success mui-btn-block mui-btn-outlined" @click="joinShopcart">加入购物车</button>
       </div>
     </div>
 
@@ -43,6 +43,7 @@
 
 <script>
 	import URL from '../../js/api/url.js';
+	import goodsStorage from '../../js/data/goods.js';
   import vTitle from '../common/title.vue';
   import vSwipe from '../common/swipe.vue';
   import vNumbox from '../common/numbox.vue';
@@ -55,7 +56,7 @@
     	return {
     		title: '商品购买',
     		id: this.$route.params.id,
-    		count: 1,
+    		total: goodsStorage.get(this.$route.params.id),
     		hums: [],
 			  goods: {},
 			  selectedTab: ''
@@ -88,10 +89,16 @@
       	});
       },
 
-      // 更新商品购买数量，更新购物车显示数据
+      // 更新商品购买数量
       upCount(val) {
-      	this.count = val;
-      	console.log(this.$refs)
+      	this.total = val;
+      },
+
+      // 加入购物车
+      joinShopcart() {
+      	goodsStorage.set(this.id, this.total);
+      	// 手动修改dom的值，因为这个值底部footer监听不到变化
+				document.querySelector('.mui-badge').innerText = goodsStorage.getAll();
       }
     },
 
