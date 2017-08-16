@@ -21,7 +21,7 @@
               </div>
             </li>
             <li>
-              <a href="javascript:void(0)">删除</a>
+              <a href="javascript:void(0)" @click="remove(item.id)">删除</a>
             </li>
           </ul>
         </div>
@@ -33,11 +33,11 @@
       <div class="total_val">
         <ul>
           <li>总计（不含运费）</li>
-          <li>已勾选商品10件,总价:￥1000元</li>
+          <li>已勾选商品 {{ sumTotal }} 件，总价: ￥{{ priceTotal }} 元</li>
         </ul>
       </div>
       <div class="total_btn">
-        <mt-button type="danger" size="small">去结算</mt-button>
+      	<mt-button type="primary">付 款</mt-button>
       </div>
     </div>
 
@@ -58,15 +58,44 @@
     	};
     },
 
+    computed: {
+
+    	// 所选商品价格总和：
+    	// 1、遍历购物车，每个选中状态的商品单价 * 选取数量，得到每个商品的总价
+    	// 2、把每个商品的总价相加得到全部商品总价
+      priceTotal() {
+        let priceList = this.shopcartList
+          .map(item => item.selected? item.sell_price * goodsStorage.get(item.id) : 0);
+        return priceList.length && priceList.reduce((v1, v2) => v1+v2);
+      },
+
+      // 所选商品数量总和：
+      // 1、遍历购物车，取得每个选中状态的商品数量
+    	// 2、把每个商品的数量相加得到全部商品的数量
+      sumTotal() {
+      	let totalList = this.shopcartList.map(item => item.selected? goodsStorage.get(item.id) : 0);
+      	return totalList.length && totalList.reduce((v1, v2) => v1+v2);
+      }
+    },
+
     methods: {
 
     	// 获取购物车商品列表
     	getShopcartList() {
-    		let url = URL.shopcartList + goodsStorage.getIDList();
+
+    		// 获取购物车所有商品的id，如果没有那么就不用发送请求了
+    		let ids = goodsStorage.getIDList().toString();
+    		if(!ids) {
+    			return;
+    		}
+
+    		// 请求接口获取购物车中每个商品的详细信息
+    		let url = URL.shopcartList + ids;
     		this.$http.get(url).then(rep => {
 					let body = rep.body;
+					// 请求成功后，需要对商品的图片地址添加域名前缀，
+					// 同时给每条数据添加一个selected属性作为商品的选取开关，默认为选中状态true
 					if(body.status == 0) {
-						// 商品的图片地址需要添加域名前缀，给每条数据添加一个selected属性作为商品的选取开关
 						this.shopcartList = body.message.map(item => {
 							item.src = URL.imgDomain + item.thumb_path;
 							item.selected = true;
@@ -74,6 +103,15 @@
 						});
 					}
     		});
+    	},
+
+    	// 删除商品
+    	// 1、从购物车列表中删除：通过id找到商品在列表中的下标，然后splice删除
+    	// 2、从storage中删除：调用封装好的删除方法即可实现
+    	remove(id) {
+    		let index = this.shopcartList.findIndex(item => item.id == id);
+    		index > -1 && this.shopcartList.splice(index, 1);
+				goodsStorage.remove(id);
     	}
     },
 

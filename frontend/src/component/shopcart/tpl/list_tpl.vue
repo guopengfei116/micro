@@ -29,7 +29,7 @@
         </ul>
       </div>
       <div class="total_btn">
-        <mt-button type="danger" size="small">去结算</mt-button>
+        <mt-button type="primary">付 款</mt-button>
       </div>
     </div>
 
