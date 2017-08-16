@@ -29,7 +29,7 @@
     methods: {
       // 减
       subtract() {
-		this.value > 0 && this.value--;
+				this.value > 0 && this.value--;
       },
 
       // 加

@@ -14,11 +14,7 @@
           <ul>
             <li>￥{{ item.sell_price }}</li>
             <li>
-              <div class="mui-numbox">
-              	<button class="mui-btn mui-btn-numbox-minus">-</button>
-              	<input class="mui-input-numbox" type="number">
-              	<button class="mui-btn mui-btn-numbox-plus">+</button>
-              </div>
+              <v-numbox :initial="goodsStorage.get(item.id)" @change="upTotal(item.id, $event)"></v-numbox>
             </li>
             <li>
               <a href="javascript:void(0)" @click="remove(item.id)">删除</a>
@@ -46,6 +42,7 @@
 
 <script>
   import URL from '../../js/api/url.js';
+  import vNumbox from '../common/numbox.vue';
   import goodsStorage from '../../js/model/goods.js';
   import vTitle from '../common/title.vue';
 
@@ -54,7 +51,8 @@
     data() {
     	return {
     		title: '购物车',
-    		shopcartList: []
+    		shopcartList: [],
+    		goodsStorage
     	};
     },
 
@@ -112,6 +110,12 @@
     		let index = this.shopcartList.findIndex(item => item.id == id);
     		index > -1 && this.shopcartList.splice(index, 1);
 				goodsStorage.remove(id);
+    	},
+
+    	// 更新商品数量
+    	upTotal(id, total) {
+    		console.log(arguments);
+    		goodsStorage.set(id, total);
     	}
     },
 
@@ -120,7 +124,8 @@
     },
 
     components: {
-    	vTitle
+    	vTitle,
+    	vNumbox
     }
   };
 </script>
