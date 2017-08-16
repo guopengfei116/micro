@@ -18,7 +18,8 @@ export default {
 
   // 获取购买数量总和
   getAll() {
-  	return Object.values(goodsTotal).reduce((v1, v2) => v1+v2) || 0;
+  	let values = Object.values(goodsTotal);
+  	return values.length && values.reduce((v1, v2) => v1+v2) || 0;
   },
 
   // 获取数据

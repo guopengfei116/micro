@@ -41,4 +41,7 @@
 </script>
 
 <style lang="less">
+	.number-box {
+		display: inline-block;
+	}
 </style>
