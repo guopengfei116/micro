@@ -5,6 +5,12 @@ let goodsTotal = storage.get(STORAGE_KEY); // 获取本地存储的数据
 
 export default {
 
+	// 依据ID删除数据
+  remove(id) {
+  	delete goodsTotal[id];
+  	storage.set(STORAGE_KEY, goodsTotal);
+  },
+
   // 依据ID存储商品购买数量
   set(id, total) {
   	goodsTotal[id] = total;
