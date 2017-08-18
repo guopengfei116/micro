@@ -38,6 +38,7 @@
 
 <script>
   import URL from '../../js/api/url.js';
+  import HTTP from '../../js/api/http.js';
   import vTitle from '../common/title.vue';
 
   export default {
@@ -55,13 +56,12 @@
      // 获取商品列表
       getGoodsList() {
       	let url = `${URL.goodsList}?pageindex=${this.pageindex}`;
-        this.$http.get(url).then(rep => {
-       	  let body = rep.body;
+        HTTP.get(url).then(body => {
        	  // 如果当前页已经么有数据了，那么不用push也不用pageindex++了
-  				if(body.status == 0 && body.message.length > 0){
+  				if(body.message.length > 0){
   					this.goodsList.push(...body.message);
   					this.pageindex++;
-  				}else if(body.message.length == 0){
+  				}else {
   					this.$refs.loadMoreBtn.disabled = true;
   				}
         });

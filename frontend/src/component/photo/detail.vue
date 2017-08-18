@@ -26,6 +26,7 @@
 
 <script>
   import URL from '../../js/api/url.js';
+  import HTTP from '../../js/api/http.js';
   import vTitle from '../common/title.vue';
 
   export default {
@@ -43,24 +44,19 @@
       // 获取描述信息
       getInfo() {
         let url = URL.photoInfo + this.$route.params.id;
-        this.$http.get(url).then(rep => {
-          let body = rep.body;
-          body.status == 0 && (this.info = body.message[0]);
+        HTTP.get(url).then(body => {
+          this.info = body.message[0];
         });
       },
 
-      // 获取缩略图
+      // 获取缩略图，请求成功后给每张图片地址添加域名前缀
       getHums() {
         let url = URL.photoHums + this.$route.params.id;
-        this.$http.get(url).then(rep => {
-          let body = rep.body;
-          if(body.status == 0) {
-            // 遍历图片列表，修改每一个图片对象的img_url地址
-            this.hums = body.message.map(function(photo, i) {
-              photo.src = URL.imgDomain + photo.src;
-              return photo;
-            });
-          }
+        HTTP.get(url).then(body => {
+          this.hums = body.message.map((photo, i) => {
+            photo.src = URL.imgDomain + photo.src;
+            return photo;
+          });
         });
       }
     },

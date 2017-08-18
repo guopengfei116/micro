@@ -30,6 +30,7 @@
 
 <script>
   import URL from '../../js/api/url.js';
+  import HTTP from '../../js/api/http.js';
   import vTitle from '../common/title.vue';
 
   export default {
@@ -55,24 +56,19 @@
       // 获取分类列表
       getCategoryList() {
         let url = URL.photoCategoryList;
-        this.$http.get(url).then(rep => {
-          let body = rep.body;
-          body.status == 0 && (this.categoryList = body.message);
+        HTTP.get(url).then(body => {
+          this.categoryList = body.message;
         });
       },
 
-      // 获取图片列表
+      // 获取图片列表，请求成功后给每张图片地址添加域名前缀
       getPhotoList(id) {
         let url = URL.photoList + id;
-        this.$http.get(url).then(rep => {
-          let body = rep.body;
-          if(body.status == 0) {
-            // 遍历图片列表，修改每一个图片对象的img_url地址
-            this.photoList = body.message.map(function(photo, i) {
-              photo.img_url = URL.imgDomain + photo.img_url;
-              return photo;
-            });
-          }
+        HTTP.get(url).then(body => {
+          this.photoList = body.message.map((photo, i) => {
+            photo.img_url = URL.imgDomain + photo.img_url;
+            return photo;
+          });
         });
       },
 

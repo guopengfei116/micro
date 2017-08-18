@@ -11,6 +11,7 @@
 
 <script>
   import URL from '../../../js/api/url.js';
+  import HTTP from '../../../js/api/http.js';
 
   export default {
 
@@ -27,9 +28,8 @@
       // 获取图文介绍
       getGoodsInfo() {
         let url = URL.goodsInfo + this.id;
-        this.$http.get(url).then(rep => {
-          let body = rep.body;
-          body.status == 0 && (this.info = body.message[0]);
+        HTTP.get(url).then(body => {
+          this.info = body.message[0];
         });
       }
     },

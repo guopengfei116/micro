@@ -25,6 +25,7 @@
 
 <script>
 	import URL from '../../js/api/url.js';
+	import HTTP from '../../js/api/http.js';
 	import vTitle from '../common/title.vue';
 
 	export default {
@@ -41,8 +42,8 @@
 	        // 获取新闻列表
 	        getNews() {
 	            let url = URL.newsList;
-	            this.$http.get(url).then(rep => {
-	                rep.body.status == 0 && (this.list = rep.body.message);
+	            HTTP.get(url).then(body => {
+	                this.list = body.message;
 	            });
 	        }
 	    },

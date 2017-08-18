@@ -43,6 +43,7 @@
 <script>
 	import { Toast } from 'mint-ui';
   import URL from '../../js/api/url.js';
+  import HTTP from '../../js/api/http.js';
   import vNumbox from '../common/numbox.vue';
   import goodsStorage from '../../js/model/goods.js';
   import vTitle from '../common/title.vue';
@@ -89,18 +90,15 @@
     		}
 
     		// 请求接口获取购物车中每个商品的详细信息
+    		// 请求成功后，需要对商品的图片地址添加域名前缀，
+        // 同时给每条数据添加一个selected属性作为商品的选取开关，默认为选中状态true
     		let url = URL.shopcartList + ids;
-    		this.$http.get(url).then(rep => {
-					let body = rep.body;
-					// 请求成功后，需要对商品的图片地址添加域名前缀，
-					// 同时给每条数据添加一个selected属性作为商品的选取开关，默认为选中状态true
-					if(body.status == 0) {
-						this.shopcartList = body.message.map(item => {
-							item.src = URL.imgDomain + item.thumb_path;
-							item.selected = true;
-							return item;
-						});
-					}
+    		HTTP.get(url).then(body => {
+          this.shopcartList = body.message.map(item => {
+              item.src = URL.imgDomain + item.thumb_path;
+              item.selected = true;
+              return item;
+            });
     		});
     	},
 

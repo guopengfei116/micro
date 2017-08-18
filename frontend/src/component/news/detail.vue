@@ -24,6 +24,7 @@
 
 <script>
 	import URL from '../../js/api/url.js';
+	import HTTP from '../../js/api/http.js';
 	import vTitle from '../common/title.vue';
 	import vComment from '../common/comment.vue';
 
@@ -46,8 +47,8 @@
 	    // 根据id获取对应的新闻详情
 	    getDetatils() {
 	      let url = URL.newsDetail + this.$route.params.id;
-	      this.$http.get(url).then(rep => {
-	        rep.body.status == 0 && (this.news = rep.body.message[0]);
+	      HTTP.get(url).then(body => {
+	        this.news = body.message[0];
 	      });
 	    }
 	  },

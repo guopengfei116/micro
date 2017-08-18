@@ -7,6 +7,7 @@
 
 <script>
 	import URL from '../../js/api/url.js';
+	import HTTP from '../../js/api/http.js';
 	import vSwipe from '../common/swipe.vue';
 	import vNav from './nav.vue';
 
@@ -20,18 +21,15 @@
 
 		methods: {
 
-			// 获取轮播图列表
+			// 获取轮播图列表数据，
+			// 成功后把每一项的img属性转为src，以复用轮播图组件
 			getLunbos() {
 				let url = URL.lunbos;
-				this.$http.get(url).then(rep => {
-					let body = rep.body;
-					if(body.status == 0) {
-						// 把数据中的img属性转为src，以复用轮播图组件
-						this.lunbos = rep.body.message.map(item => {
-							item.src = item.img;
-							return item;
-						});
-					}
+				HTTP.get(url).then(body => {
+          this.lunbos = body.message.map(item => {
+            item.src = item.img;
+            return item;
+          });
 				});
 			}
 		},

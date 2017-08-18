@@ -43,6 +43,7 @@
 
 <script>
 	import URL from '../../js/api/url.js';
+	import HTTP from '../../js/api/http.js';
 	import goodsStorage from '../../js/model/goods.js';
   import vTitle from '../common/title.vue';
   import vSwipe from '../common/swipe.vue';
@@ -65,28 +66,24 @@
 
     methods: {
 
-    	// 获取商品缩略图
+    	// 获取商品缩略图，请求成功后给每张图片地址添加域名前缀
       getHums() {
         let url = URL.photoHums + this.id;
-        this.$http.get(url).then(rep => {
-          let body = rep.body;
-          if(body.status == 0) {
-            // 遍历图片列表，修改每一个图片对象的img_url地址
-            this.hums = body.message.map(function(photo, i) {
-              photo.src = URL.imgDomain + photo.src;
-              return photo;
-            });
-          }
+        HTTP.get(url).then(body => {
+          this.hums = body.message.map(function(photo, i) {
+            photo.src = URL.imgDomain + photo.src;
+            return photo;
+          });
         });
       },
 
       // 获取价格信息
       getGoodsPrice() {
       	let url = URL.goodsPrice + this.id;
-      	this.$http.get(url).then(rep => {
-      		let body = rep.body;
-      		body.status == 0 && (this.goods = body.message[0]);
+      	HTTP.get(url).then(body => {
+      		this.goods = body.message[0];
       	});
+
       },
 
       // 更新商品购买数量
