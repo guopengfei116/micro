@@ -14,8 +14,8 @@ Vue.use(MintUI);
 
 // 二、导入我们自己的东西
 
-// 2.0 启用拦截器
-import interceptors from './api/http.js';
+// 2.0 公共拦截器
+import interceptors from './common/interceptors.js';
 Vue.http.interceptors.push(...interceptors);
 
 // 2.1 过滤器插件
