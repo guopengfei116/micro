@@ -1,23 +1,45 @@
 import Vue from 'vue';
-import { Indicator, Toast } from 'mint-ui';
+import cache from '../common/cache.js';
 
-export default [
+// 主方法
+function http(method, url, ...arg) {
 
-  // 1、添加请求loading和错误处理
-  function(req, next) {
+  return new Promise(function(resolve, reject) {
 
-    // 请求前添加loading
-    Indicator.open('加载中...');
-
-    // 请求后取消loading
-    next(rep => {
-      Indicator.close();
-
-      // 请求失败进行统一的错误处理
-      if(!rep.ok || rep.body.status != 0) {
-        Toast('请求失败，请稍候再试');
+    // get请求优先使用缓存
+    if(method === 'get') {
+      let data = cache.get(url);
+      if(data) {
+        return resolve(data);
       }
-    });
-  }
-];
+    }
 
+    // 发起http请求，成功后修改promise状态
+    Vue.http[method](url, ...arg).then(function(rep) {
+      let body = rep.body;
+      method === 'get' && cache.set(url, body);  // 如果是get请求要缓存结果
+      resolve(body);
+    }, reject);
+
+  });
+}
+
+// 添加细分静态方法
+Object.assign(http, {
+
+  // GET请求
+  get(url, config) {
+      return this('get', url, config);
+  },
+
+  // POST请求
+  post(url, data = {}, config = {}) {
+    let defConfig = {emulateJSON: true};  // 默认数据格式为formdata
+    Object.assign(defConfig, config);
+    return this('post', url, data, defConfig);
+  }
+
+});
+
+// 暴漏http方法
+export default http;

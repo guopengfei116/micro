@@ -37,17 +37,20 @@
 
 <script>
   import URL from '../../js/api/url.js';  // 接口配置
+  import HTTP from '../../js/api/http.js';
   import { Toast } from 'mint-ui';  // 提示框组件
 
   // 组件定义
   export default {
 
   	data() {
+
   		return {
   			content: '',
   			pageindex: 1,
   			list: []
   		};
+
   	},
 
   	props: ['id'],
@@ -56,53 +59,49 @@
 
   		// 提交评论
   		putComment() {
+
   			let url = URL.commentPut + this.id;
   			let data = {content: this.content};
-  			let options = { emulateJSON: true };
 
-  			this.$http.post(url, data, options).then(rep => {
-  				if(rep.body.status == 0) {
-  					// 把数据添加到评论列表的最前面
-	                this.list.unshift({
-	                    user_name: '你自个',
-	                    add_time: Date.now(),
-	                    content: this.content
-	                });
-	                // 提示
-					Toast({
-					  message: '操作成功',
-					  iconClass: 'icon icon-success'
-					});
-					// 清空输入框，记得放在最后清空
-					this.content = '';
-				}
-  			});
+        // 发表成功后把新评论添加到列表的最前面，同时清空输入框
+        HTTP.post(url, data).then(body => {
+          this.list.unshift({
+              user_name: '你自个',
+              add_time: Date.now(),
+              content: this.content
+          });
+          this.content = '';
+        });
+
   		},
 
   		// 获取评论列表
   		getComment() {
+
   			let url = URL.commentList + this.id;
   			let options = {
   				params:{pageindex: this.pageindex}
   			};
 
-  			this.$http.get(url, options).then(rep => {
-  				let body = rep.body;
-
-  				// 如果当前页已经么有数据了，那么不用push也不用pageindex++了
-  				if(body.status == 0 && body.message.length > 0){
-  					this.list.push(...body.message);
-  					this.pageindex++;
-  				}else if(body.message.length == 0){
-  					this.$refs.loadMoreBtn.disabled = true;
-  				}
+        // 如果是空数据，那么证明这已经是最后一页，
+        // 不用push也不用pageindex++，禁掉按钮点击功能实现最大程度优化
+  			HTTP.get(url, options).then(body => {
+          if(body.message.length > 0){
+            this.list.push(...body.message);
+            this.pageindex++;
+          }else {
+            this.$refs.loadMoreBtn.disabled = true;
+          }
   			});
+
   		}
+
   	},
 
   	created() {
   		this.getComment();
   	}
+
   };
 </script>
 

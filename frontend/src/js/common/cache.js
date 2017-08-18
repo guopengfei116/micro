@@ -29,6 +29,6 @@ export default {
   // 缓存有效性检测，当前时间 > 存储时间一定数值则无效
   isValid(saveTime) {
     let currentTime = Date.now();
-    return currentTime - saveTime > maxAge;
+    return currentTime - saveTime < maxAge;
   }
 };
