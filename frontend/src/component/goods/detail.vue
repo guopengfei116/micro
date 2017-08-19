@@ -16,7 +16,7 @@
         <div class="price"> <s>市场价:￥{{ goods.sell_price }}</s> <span>销售价: </span> <em>￥{{ goods.market_price }}</em> </div>
         <div> <span>购买数量：</span>
           <!--数字输入框 -->
-					<v-numbox :initial="total" @change="upCount"></v-numbox>
+					<v-numbox :initial="total" @change="upTotal"></v-numbox>
         </div>
       </div>
       <!-- 按钮 -->
@@ -44,7 +44,6 @@
 <script>
 	import URL from '../../js/api/url.js';
 	import HTTP from '../../js/api/http.js';
-	import goodsStorage from '../../js/model/goods.js';
   import vTitle from '../common/title.vue';
   import vSwipe from '../common/swipe.vue';
   import vNumbox from '../common/numbox.vue';
@@ -57,7 +56,7 @@
     	return {
     		title: '商品购买',
     		id: this.$route.params.id,
-    		total: goodsStorage.get(this.$route.params.id),
+    		total: this.$store.state[this.$route.params.id],
     		hums: [],
 			  goods: {},
 			  selectedTab: ''
@@ -83,19 +82,19 @@
       	HTTP.get(url).then(body => {
       		this.goods = body.message[0];
       	});
-
       },
 
       // 更新商品购买数量
-      upCount(val) {
-      	this.total = val;
+      upTotal(total) {
+      	this.total = total;
       },
 
-      // 加入购物车
+      // 加入购物车，修改vuex的数据，底部购物车总数会监听到变化而更新
       joinShopcart() {
-      	goodsStorage.set(this.id, this.total);
-      	// 手动修改dom的值，因为这个值底部footer监听不到变化
-				document.querySelector('.mui-badge').innerText = goodsStorage.get();
+      	this.$store.commit('set', {
+      	  id: this.id,
+      	  total: this.total
+      	});
       }
     },
 
